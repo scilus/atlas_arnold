@@ -36,6 +36,7 @@
 #################################################################################################################
 
 #### TODO: "parallelize" this with parallel or nextoflow
+#### TODO: Could use the --filtering_list option 
 
 dir=$1
 MNI_ROIs=$2
@@ -57,7 +58,6 @@ do
     
     mkdir -p ${o_dir}/${s_id}
 
-    echo "$t  ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni.trk"
     # Arnold proper
     scil_filter_tractogram.py $t ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni.trk \
 			      --drawn_roi ${MNI_ROIs}/L_pulvinar_mni_mean_bin.nii.gz either_end include \
@@ -90,8 +90,7 @@ do
 			      --drawn_roi ${MNI_ROIs}/SelectionCube04.nii.gz any exclude \
 			      --drawn_roi ${MNI_ROIs}/SelectionCuber05.nii any exclude \
 			      --drawn_roi ${MNI_ROIs}/L_hippo_temporal_mask.nii any exclude \
-			      --drawn_roi ${MNI_ROIs}/Mid_sagittal_mask.nii any exclude -f
-		
+			      --drawn_roi ${MNI_ROIs}/Mid_sagittal_mask.nii any exclude -f		
     scil_filter_tractogram.py $t ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni.trk \
 			      --drawn_roi ${MNI_ROIs}/R_pulvinar_mni_mean_bin.nii.gz either_end include \
 			      --drawn_roi ${MNI_ROIs}/R_TL_mni_mean_bin.nii.gz either_end include \
@@ -117,7 +116,6 @@ do
 			      --drawn_roi ${MNI_ROIs}/L_Selection_Cube_01_mni_mean_bin.nii.gz any exclude \
 			      --drawn_roi ${MNI_ROIs}/L_Selection_Cube_02_mni_mean_bin.nii.gz any exclude \
 			      --drawn_roi ${MNI_ROIs}/L_Selection_Cube_03_mni_mean_bin.nii.gz any exclude -f
-    
     scil_filter_tractogram.py $t ${o_dir}/${s_id}/${s_id}_R_Arnold_AR_like_mni.trk \
 			      --drawn_roi ${MNI_ROIs}/R_pulvinar_mni_mean_bin.nii.gz either_end include \
 			      --drawn_roi ${MNI_ROIs}/R_STG_mni_mean_bin.nii.gz either_end include \
@@ -164,6 +162,7 @@ do
     scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni.trk \
 		      ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni2.trk --maxL 55 -f
 
+    # Pruned by length versions are the final 4 left and right Arnold tracks
     mv ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni2.trk ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni.trk
     mv ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni2.trk ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni.trk
     mv ${o_dir}/${s_id}/${s_id}_R_Arnold_OR_like_mni2.trk ${o_dir}/${s_id}/${s_id}_R_Arnold_OR_like_mni.trk
