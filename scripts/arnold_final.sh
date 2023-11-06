@@ -56,7 +56,8 @@ do
     s_id=${f/\/*/}
     
     mkdir -p ${o_dir}/${s_id}
-    
+
+    echo "$t  ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni.trk"
     # Arnold proper
     scil_filter_tractogram.py $t ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni.trk \
 			      --drawn_roi ${MNI_ROIs}/L_pulvinar_mni_mean_bin.nii.gz either_end include \
