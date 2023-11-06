@@ -67,6 +67,7 @@ do
 			      --drawn_roi ${MNI_ROIs}/L_FG_mni_mean_bin.nii.gz any exclude \
 			      --drawn_roi ${MNI_ROIs}/L_Selection_Cube_02_mni_mean_bin.nii.gz any exclude \
 			      --drawn_roi ${MNI_ROIs}/L_Selection_Cube_03_mni_mean_bin.nii.gz any exclude -f
+
     scil_filter_tractogram.py $t ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni.trk \
 			      --drawn_roi ${MNI_ROIs}/R_pulvinar_mni_mean_bin.nii.gz either_end include \
 			      --drawn_roi ${MNI_ROIs}/R_TL_mni_mean_bin.nii.gz either_end include \
