@@ -146,23 +146,23 @@ do
 		      --drawn_roi ${MNI_ROIs}/R_Selection_Cube_03_mni_mean_bin_corrected_to_exclude_thalamus.nii any include -f
     
     # Small length pruning to remove spurious streamlines
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni2.trk --max_prune 90 -f
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_L_Arnold_OR_like_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_L_Arnold_OR_like_mni2.trk --max_prune 130 -f
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_L_Arnold_AR_like_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_L_Arnold_AR_like_mni2.trk --max_prune 63 -f
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_L_Arnold_lateral_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_L_Arnold_lateral_mni2.trk --max_prune 55 -f    
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_L_Arnold_proper_mni2.trk --maxL 90 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_L_Arnold_OR_like_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_L_Arnold_OR_like_mni2.trk --maxL 130 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_L_Arnold_AR_like_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_L_Arnold_AR_like_mni2.trk --maxL 63 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_L_Arnold_lateral_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_L_Arnold_lateral_mni2.trk --maxL 55 -f    
     		
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni2.trk --max_prune 90 -f
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_R_Arnold_OR_like_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_R_Arnold_OR_like_mni2.trk --max_prune 130 -f
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_R_Arnold_AR_like_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_R_Arnold_AR_like_mni2.trk --max_prune 63 -f
-    prune_streamlines ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni.trk \
-		      ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni2.trk --max_prune 55 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni2.trk --maxL 90 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_R_Arnold_OR_like_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_R_Arnold_OR_like_mni2.trk --maxL 130 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_R_Arnold_AR_like_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_R_Arnold_AR_like_mni2.trk --maxL 63 -f
+    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni.trk \
+		      ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni2.trk --maxL 55 -f
 
     mv ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni2.trk ${o_dir}/${s_id}/${s_id}_R_Arnold_proper_mni.trk
     mv ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni2.trk ${o_dir}/${s_id}/${s_id}_R_Arnold_lateral_mni.trk
