@@ -22,11 +22,11 @@
 #
 # ./arnold_final.sh  input_arnold/ MNI_binary_ROIs/   o_dir
 #
-#  root=/path/to/[root]                      Root folder containing multiple subjects
+#  root=/path/to/[root]                      Root folder containing multiple subjects trk in MNI space
 #
 #                                              [root]
 #                                                ├── S1
-#                                                │   └── *mni.trk
+#                                                │   └── *.trk
 #                                                └── S2
 #                                                    └── *
 #
@@ -48,12 +48,12 @@ echo "Output folder: $o_dir"
 
 for i in ${dir}/*;
 do
-    # subject ID directory
-    s_id=$i
     # tractogram to virtually dissect
-    t="${i}/*mni.trk"
-
-    echo $t
+    t="${i}/*.trk"
+    
+    # subject ID directory
+    f=${t/${dir}\//}
+    s_id=${f/\/*/}
     
     mkdir -p ${o_dir}/${s_id}
     
