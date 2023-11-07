@@ -1,10 +1,10 @@
 #################################################################################################################
 # This script takes an input folder of tractograms in MNI space and perfoms the virtual dissection to extract
 # the left and right Arnold tracks and write them to output folder provided:
-#    1) ${nside}_Arnold_proper, R_Arnold_proper
-#    2) ${nside}_Arnold_lateral, R_Arnold_lateral
-#    3) ${nside}_Arnold_AR_like, R_Arnold_AR_like
-#    4) ${nside}_Arnold_OR_like, R_Arnold_OR_like
+#    1) L_Arnold_proper, R_Arnold_proper
+#    2) L_Arnold_lateral, R_Arnold_lateral
+#    3) L_Arnold_AR_like, R_Arnold_AR_like
+#    4) L_Arnold_OR_like, R_Arnold_OR_like
 #
 #   AR := Accoustic Radiations, OR := Optic Radiations
 #
@@ -28,7 +28,7 @@
 #                 ├── S1
 #                 │   └── *.trk
 #                 ├── S2
-#                 └── *.trk
+#                 │   └── *.trk
 #                 └── *
 #
 #  MNI_ROI_PATH=/path/to/atlas_arnold/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
@@ -36,8 +36,7 @@
 #  OUT_DIR=/path/to/[OUT_DIR] Output directory
 #################################################################################################################
 
-#### TODO: "parallelize" this with parallel or nextoflow
-#### TODO: Could use the --filtering_list option 
+#### TODO: "parallelize" this with parallel or nextflow
 
 #!/usr/bin/env bash
 usage() { echo "#
@@ -75,24 +74,26 @@ if [ -z "${i}" ] || [ -z "${r}" ] || [ -z "${o}" ]; then
     usage
 fi
 
+i_dir=${i%%/}
+MNI_ROIs=${r%%/}
+o_dir=${o%%/}
+
 echo "#"
-echo "# Input folder: ${i}"
-echo "# MNI_ROIs found: ${r}"
-echo "# Output folder: ${o}"
+echo "# Input folder: ${i_dir}"
+echo "# MNI_ROIs found: ${MNI_ROIs}"
+echo "# Output folder: ${o_dir}"
 echo "#"
 echo ""
 
-dir=${i}
-MNI_ROIs=${r}
-o_dir=${o}
 
-for i in ${dir}/*;
+
+for i in ${i_dir}/*;
 do
     # tractogram to virtually dissect
     t="${i}/*.trk"
 
     # subject ID directory
-    f=${t/${dir}\//}
+    f=${t/${i_dir}\//}
     s_id=${f/\/*/}
 	
 	echo ""
@@ -103,11 +104,12 @@ do
 	if [[ $(< ${o_dir}/${s_id}_log_validate.txt) != "All input files have compatible headers." ]]; then
 		echo "# ERROR - $t is not in the MNI space. Please check https://scilpy.readthedocs.io/en/latest/documentation/tractogram_registration.html"
 		echo "#"
-
 	else 
 		mkdir -p ${o_dir}/${s_id}
 	 	for nside in L R
 		do
+		echo "#"
+		echo "# Filter ${nside} side"
 	    # Arnold proper
 		echo "# Filtering Arnold proper: ${s_id}_${nside}_Arnold_proper_mni.trk"
 	    scil_filter_tractogram.py $t ${o_dir}/${s_id}/${s_id}_${nside}_Arnold_proper_mni.trk \
@@ -168,8 +170,8 @@ do
 			${o_dir}/${s_id}/${s_id}_${nside}_Arnold_AR_like_mni.trk --maxL 63 -f
 	    scil_filter_streamlines_by_length.py ${o_dir}/${s_id}/${s_id}_${nside}_Arnold_lateral_mni.trk \
 			${o_dir}/${s_id}/${s_id}_${nside}_Arnold_lateral_mni.trk --maxL 55 -f
-		echo "# Subject ${s_id} done"
 		done
+		echo "# Subject ${s_id} done"
 	fi
 done
 
