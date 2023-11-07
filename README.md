@@ -9,6 +9,10 @@ This repos allows you to perfom the virtual dissection to extract left and right
 
 AR := Accoustic Radiations, OR := Optic Radiations
 
+<img src="doc/Figure_4.png" alt="Figure_4" width="800"/>
+
+Figure from the paper
+
 ## How to cite
 ```
 Mandonnet et al BRAIN 2024 (to be published)
