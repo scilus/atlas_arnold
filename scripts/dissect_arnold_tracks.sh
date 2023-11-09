@@ -1,6 +1,6 @@
 #################################################################################################################
 # This script takes an input folder of tractograms in MNI space and perfoms the virtual dissection to extract
-# the left and right Arnold tracks and write them to output folder provided:
+# the left (L) and right (R) Arnold tracts and write them to output folder provided:
 #    1) L_Arnold_proper, R_Arnold_proper
 #    2) L_Arnold_lateral, R_Arnold_lateral
 #    3) L_Arnold_AR_like, R_Arnold_AR_like
@@ -10,8 +10,8 @@
 #
 #
 # Key points about this script:
-#   - the tractogram needs to be in trk or tck format in MNI space
-#   - the tractogram quality will not be checked. Arnold tracks are "hard-to-track" anatomical pulvino-temporal
+#   - the tractogram needs to be in trk format in MNI space
+#   - the tractogram quality will not be checked. Arnold tracts are "hard-to-track" anatomical pulvino-temporal
 #     connections. See Mandonnet et al BRAIN 2024 for tractography details. In this work, an aggressive seeding
 #     TractoFlow pipeline was used in conjunction with a Bundle-Specitifc Tractography (BST) approach. 
 #   - this script does not perform any registration or warping (see scilpy for documentation on this)
@@ -20,7 +20,7 @@
 #
 # The script is called as so:
 #
-# ./segment_arnold_atlas.sh -i INPUT -r MNI_binary_ROIs -o OUT_DIR
+# ./dissect_arnold_tracks.sh.sh -i INPUT -r MNI_binary_ROIs -o OUT_DIR
 #
 #  INPUT=/path/to/[INPUT] INPUT folder containing multiple subjects trk in MNI space
 #
@@ -42,7 +42,7 @@
 usage() { echo "#
 # The script is called as so:
 #
-# ./segment_arnold_atlas.sh -i input_arnold -r MNI_binary_ROIs -o o_dir
+# ./dissect_arnold_tracks.sh.sh -i input_arnold -r MNI_binary_ROIs -o o_dir
 #
 # input=/path/to/[INPUT]                        Input folder containing multiple subjects trk in MNI space
 #
@@ -85,8 +85,6 @@ echo "# Output folder: ${o_dir}"
 echo "#"
 echo ""
 
-
-
 for i in ${i_dir}/*;
 do
     # tractogram to virtually dissect
@@ -99,8 +97,10 @@ do
 	echo ""
 	echo "#"
     echo "# Running subject ${s_id}"
-
+	
+	mkdir -p ${o_dir}
 	scil_verify_space_attributes_compatibility.py $t ${MNI_ROIs}/../mni152_1mm_bet.nii.gz > ${o_dir}/${s_id}_log_validate.txt
+	
 	if [[ $(< ${o_dir}/${s_id}_log_validate.txt) != "All input files have compatible headers." ]]; then
 		echo "# ERROR - $t is not in the MNI space. Please check https://scilpy.readthedocs.io/en/latest/documentation/tractogram_registration.html"
 		echo "#"
