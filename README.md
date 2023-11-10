@@ -52,7 +52,7 @@ If you have any issues to install scilpy please post an issue [here](https://git
                  │   └── *.trk
                  └── *
 
-  MNI_ROI_PATH=/path/to/atlas_arnold/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
+  MNI_ROI_PATH=/path/to/atlas_arnold/data/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
 
   OUT_DIR=/path/to/[OUT_DIR] Output directory
 ```
