@@ -25,7 +25,7 @@ The script is based on [scilpy](https://github.com/scilus/scilpy)
 Make sure your pip is up-to-date before trying to install:
 ```
 pip install --upgrade pip
-pip install scilpy==1.6.0
+pip install scilpy==1.5.0
 ```
 
 If you have any issues to install scilpy please post an issue [here](https://github.com/scilus/scilpy/issues).
