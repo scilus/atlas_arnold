@@ -25,7 +25,7 @@ The script is based on [scilpy](https://github.com/scilus/scilpy)
 Make sure your pip is up-to-date before trying to install:
 ```
 pip install --upgrade pip
-pip install scilpy==1.6.0
+pip install scilpy==1.5.0
 ```
 
 If you have any issues to install scilpy please post an issue [here](https://github.com/scilus/scilpy/issues).
@@ -52,7 +52,7 @@ If you have any issues to install scilpy please post an issue [here](https://git
                  │   └── *.trk
                  └── *
 
-  MNI_ROI_PATH=/path/to/atlas_arnold/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
+  MNI_ROI_PATH=/path/to/atlas_arnold/data/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
 
   OUT_DIR=/path/to/[OUT_DIR] Output directory
 ```

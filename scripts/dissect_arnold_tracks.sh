@@ -31,7 +31,7 @@
 #                 │   └── *.trk
 #                 └── *
 #
-#  MNI_ROI_PATH=/path/to/atlas_arnold/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
+#  MNI_ROI_PATH=/path/to/atlas_arnold/data/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
 #
 #  OUT_DIR=/path/to/[OUT_DIR] Output directory
 #################################################################################################################
@@ -53,7 +53,7 @@ usage() { echo "#
 #                        │   └── *.trk
 #                        └── *
 #
-#  MNI_ROI_PATH=/path/to/atlas_arnold/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
+#  MNI_ROI_PATH=/path/to/atlas_arnold/data/MNI_ROIs  Path to MNI_binary_ROIs provided in the atlas_arnold_project
 #
 #  OUT_DIR=/path/to/[OUT_DIR]                   Output directory
 #"
@@ -99,7 +99,7 @@ do
     echo "# Running subject ${s_id}"
 	
 	mkdir -p ${o_dir}
-	scil_verify_space_attributes_compatibility.py $t ${MNI_ROIs}/../mni152_1mm_bet.nii.gz > ${o_dir}/${s_id}_log_validate.txt
+	scil_verify_space_attributes_compatibility.py $t ${MNI_ROIs}/../template/mni152_1mm_bet.nii.gz > ${o_dir}/${s_id}_log_validate.txt
 	
 	if [[ $(< ${o_dir}/${s_id}_log_validate.txt) != "All input files have compatible headers." ]]; then
 		echo "# ERROR - $t is not in the MNI space. Please check https://scilpy.readthedocs.io/en/latest/documentation/tractogram_registration.html"
